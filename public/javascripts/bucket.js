@@ -1,10 +1,24 @@
 let cos = require("./cos")
+let fs = require("fs")
+let Bucket = undefined;
+let Region = undefined;
 //查询存储桶列表
 let getBucketsList = function (_callback) {
-    cos.getService(function (err, data) {
-        // console.log(data && data.Buckets)
-        // console.log("******************")
-        _callback(data)
+    return cos.getService(function (err, data) {
+        try {
+            console.log("bucket准备好了")
+            fs.accessSync("../data/bucket");
+        } catch (err) {
+            let info = {
+                Bucket: data.Buckets[0].Name,
+                Region: data.Buckets[0].Location,
+            }
+            fs.writeFileSync("../data/bucket.json", JSON.stringify(info))
+        }
+
+        if (_callback) {
+            _callback(data)
+        }
     })
 }
 
@@ -20,7 +34,7 @@ let checkBucket = function () {
                 Bucket: res.Buckets[0].Name,
                 Region: res.Buckets[0].Location,
             }, function (err, data) {
-                // console.log(data)
+                console.log(data)
                 if (data.statusCode == 200) {
                     resolve(true);
                 } else {
@@ -30,5 +44,11 @@ let checkBucket = function () {
         })
     })
 }
+
+let checkBucketPower = async function () {
+    if (await checkBucket()) {
+
+    }
+}
 module.exports.getBucketsList = getBucketsList;
-module.exports.checkBucket = checkBucket;
+module.exports.checkBucketPower = checkBucketPower;
