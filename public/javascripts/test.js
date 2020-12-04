@@ -6,7 +6,7 @@ const object = require("./object") //对象操作
 
 
 //获取对象列表
-// object.getObjectLsit();
+object.getObjectLsit();
 
 //删除单个对象
 // object.deleteObject("333.html");
@@ -18,4 +18,4 @@ const object = require("./object") //对象操作
 // object.getObjectUrl("video/1080P_4000K_247562661.mp4");
 
 //下载对象
-object.downloadObject("video.html");
+// object.downloadObject("video.html");
