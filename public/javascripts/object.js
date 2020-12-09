@@ -55,7 +55,8 @@ module.exports = {
             console.log(err || data);
         });
     },
-    deleteObject: function (key) {
+    //删除多个对象
+    deleteMultipleObject: function (key) {
         cos.deleteMultipleObject({
             Bucket: bucketData.Bucket,
             Region: bucketData.Region,
