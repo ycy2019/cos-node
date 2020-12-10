@@ -4,11 +4,9 @@ let {
 const cos = require("./cos")
 const fs = require("fs")
 const {
-    resolve
-} = require("path")
-const {
-    rejects
-} = require("assert")
+    checkFileType
+} = require("../tools/index.js")
+
 let bucketData = undefined
 getBucket()
 
@@ -26,7 +24,6 @@ function getBucket() {
         })
     }
 }
-
 module.exports = {
     getObjectLsit: function (path) {
         return new Promise(function (resolve, reject) {
@@ -41,6 +38,10 @@ module.exports = {
                 if (err) {
                     reject(err)
                 } else {
+                    data.Contents.forEach(function (item) {
+                        item.type = checkFileType(item.Key)
+                    })
+                    // console.log(data)
                     resolve(data)
                 }
             });
@@ -66,13 +67,19 @@ module.exports = {
         });
     },
     getObjectUrl: function (key) {
-        cos.getObjectUrl({
-            Bucket: bucketData.Bucket,
-            Region: bucketData.Region,
-            Key: key,
-        }, function (err, data) {
-            console.log(err || data.Url);
-        });
+        return new Promise(function (resolve, reject) {
+            cos.getObjectUrl({
+                Bucket: bucketData.Bucket,
+                Region: bucketData.Region,
+                Key: key,
+            }, function (err, data) {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(data)
+                }
+            });
+        })
     },
     downloadObject: function (key, output) {
         cos.getObject({

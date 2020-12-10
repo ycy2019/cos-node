@@ -14,4 +14,8 @@ router.get('/string', async (ctx, next) => {
 router.get('/getObjectLsit', async (ctx, next) => {
   ctx.body = await object.getObjectLsit()
 })
+
+router.get('/getObjectUrl', async (ctx, next) => {
+  ctx.body = await object.getObjectUrl()
+})
 module.exports = router
