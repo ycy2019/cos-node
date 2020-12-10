@@ -86,6 +86,7 @@ module.exports = {
             Bucket: bucketData.Bucket,
             Region: bucketData.Region,
             Key: key,
+            Sign: false
         }, function (err, data) {
             console.log(err || data.Body);
         });
