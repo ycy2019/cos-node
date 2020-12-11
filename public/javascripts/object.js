@@ -26,6 +26,7 @@ function getBucket() {
 }
 module.exports = {
     getObjectLsit: function (path) {
+        console.log(path)
         return new Promise(function (resolve, reject) {
             cos.getBucket({
                 Bucket: bucketData.Bucket,

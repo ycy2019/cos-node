@@ -12,7 +12,7 @@ router.get('/string', async (ctx, next) => {
 })
 
 router.get('/getObjectLsit', async (ctx, next) => {
-  ctx.body = await object.getObjectLsit()
+  ctx.body = await object.getObjectLsit(ctx.request.query.path)
   next()
 })
 
