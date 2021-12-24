@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node bin/www",
+    "start": "set SECRETID=AKIDs3fBbrL42aXRL3iarOhjeNrl6BVZLl23&& set SECRETKEY=DrE4TcUAtNa5a9UaQH6sA7i4A4by4461&& node bin/www",
     "dev": "./node_modules/.bin/nodemon bin/www",
-    "prd": "pm2 start bin/www",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prd": "pm2 start set SECRETID=AKIDs3fBbrL42aXRL3iarOhjeNrl6BVZLl23&& set SECRETKEY=DrE4TcUAtNa5a9UaQH6sA7i4A4by4461&& node bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pm2": "pm2 start pm2.json --env"
   },
   "dependencies": {
     "cos-nodejs-sdk-v5": "^2.8.2",
@@ -21,7 +22,8 @@
     "koa-static": "^5.0.0",
     "koa-views": "^6.2.0",
     "koa2-cors": "^2.0.6",
-    "pug": "^2.0.3"
+    "pug": "^2.0.3",
+    "qcloud-cos-sts": "^3.0.6"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
