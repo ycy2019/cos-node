@@ -1,0 +1,25 @@
+{
+    "apps": {
+        "name": "cos",
+        "script": "./bin/www",
+        "cwd": "./",
+        "args": "",
+        "interpreter": "",
+        "interpreter_args": "",
+        "watch": false,
+        "ignore_watch": "logs",
+        "exec_mode": "fork",
+        "instances": 1,
+        "error_file": "./logs/app-err.log",
+        "out_file": "./logs/app-out.log",
+        "merge_logs": true,
+        "log_date_format": "YYYY-MM-DD HH:mm:ss",
+        "autorestart": false,
+        "cron_restart": "",
+        "restart_delay": 60,
+        "env": {
+            "SECRETID": "AKIDs3fBbrL42aXRL3iarOhjeNrl6BVZLl23",
+            "SECRETKEY": "DrE4TcUAtNa5a9UaQH6sA7i4A4by4461"
+        }
+    }
+}
