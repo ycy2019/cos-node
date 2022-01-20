@@ -1,52 +1,37 @@
-let {
-    getBucketsList
-} = require("./bucket")
+// let {
+//     getBucketsList
+// } = require("./bucket")
 const cos = require("./cos")
 const fs = require("fs")
 const {
     checkFileType
 } = require("../tools/index.js")
 
-let bucketData = undefined
-getBucket()
+// let bucketData = undefined
+// getBucket()
 
-function getBucket() {
-    try {
-        fs.accessSync(path.join(__dirname, "../data/bucket.json"));
-        bucketData = JSON.parse(fs.readFileSync(path.join(__dirname, "../data/bucket.json")).toString());
-    } catch (err) {
-        console.log(2)
-        getBucketsList((data) => {
-            bucketData = {
-                Bucket: data.Buckets[0].Name,
-                Region: data.Buckets[0].Location,
-            }
-        })
-    }
-}
+// function getBucket() {
+//     try {
+//         fs.accessSync(path.join(__dirname, "../data/bucket.json"));
+//         bucketData = JSON.parse(fs.readFileSync(path.join(__dirname, "../data/bucket.json")).toString());
+//     } catch (err) {
+//         console.log(2)
+//         getBucketsList((data) => {
+//             bucketData = {
+//                 Bucket: data.Buckets[0].Name,
+//                 Region: data.Buckets[0].Location,
+//             }
+//         })
+//     }
+// }
 module.exports = {
-    getObjectLsit: function (path) {
-        console.log(path)
-        return new Promise(function (resolve, reject) {
-            cos.getBucket({
-                Bucket: bucketData.Bucket,
-                Region: bucketData.Region,
-                Prefix: path || "",
-                Delimiter: "/"
-            }, function (err, data) {
-                // console.log(err || data);
-                console.log(1)
-                if (err) {
-                    reject(err)
-                } else {
-                    data.Contents.forEach(function (item) {
-                        item.type = checkFileType(item.Key)
-                    })
-                    // console.log(data)
-                    resolve(data)
-                }
-            });
-        })
+    getObjectList: async function (path) {
+        try {
+            return await cos.getObjectList(path)
+        } catch (error) {
+            console.error(error)
+            throw error
+        }
     },
     deleteObject: function (key) {
         cos.deleteObject({

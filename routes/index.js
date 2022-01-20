@@ -11,8 +11,8 @@ router.get('/string', async (ctx, next) => {
   ctx.body = 'koa2 string'
 })
 
-router.get('/getObjectLsit', async (ctx, next) => {
-  ctx.body = await object.getObjectLsit(ctx.request.query.path)
+router.get('/getObjectList', async (ctx, next) => {
+  ctx.body = await object.getObjectList(ctx.request.query.path)
   next()
 })
 
