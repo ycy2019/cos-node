@@ -1,3 +1,6 @@
+const config = require("./public/config/develop.json");
+global.config = config;
+
 const Koa = require('koa')
 const app = new Koa()
 const views = require('koa-views')
@@ -6,16 +9,26 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 var cors = require('koa2-cors');
-
+const checkToken = require("./public/javascripts/token")
 const index = require('./routes/index')
 const users = require('./routes/users')
 const sts = require('./routes/sts')
+const sequelize = require("./public/sqlite/sqlite")
+console.log(sequelize.models)
+// sequelize.models.user.create({
+//   account:"test",
+//   password:"test"
+// })
 // error handler
 onerror(app)
 
+
 // middlewares
+app.use(checkToken);
+
+
 app.use(bodyparser({
-  enableTypes:['json', 'form', 'text']
+  enableTypes: ['json', 'form', 'text']
 }))
 app.use(json())
 app.use(cors());
@@ -31,6 +44,7 @@ app.use(async (ctx, next) => {
   const start = new Date()
   await next()
   const ms = new Date() - start
+  console.log("log")
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
